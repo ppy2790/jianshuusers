@@ -16,10 +16,12 @@ class JianshuUsersSpider(CrawlSpider):
     name = "jianshuusers"
 
     start_urls=[
-        #'http://www.jianshu.com/users/aTFqFm/following', #首席拒稿官, --> 简书签约作者
-        'http://www.jianshu.com/users/54b5900965ea/followers',#彭小六
+        'http://www.jianshu.com/users/aTFqFm/following', #首席拒稿官, --> 简书签约作者
+        'http://www.jianshu.com/users/54b5900965ea/followers',#彭小六  --> 普通用户居多,下同
         'http://www.jianshu.com/users/y3Dbcz/followers',  # 简叔
         'http://www.jianshu.com/users/8f03f4df0d30/followers' #剽悍一只猫
+        'http://www.jianshu.com/users/5SqsuF/followers', #刘淼
+
     ]
 
     def parse(self, response):
@@ -60,10 +62,10 @@ class JianshuUsersSpider(CrawlSpider):
 
             item['url'] = 'http://www.jianshu.com'+userurl
             item['nickname']= nickname
-            item['atten'] = filter(str.isdigit,str(atten))
-            item['fans'] = filter(str.isdigit,str(fans))
-            item['articles'] = filter(str.isdigit,str(articles))
-            item['collections'] = filter(str.isdigit,str(collections))
+            item['atten'] = int(filter(str.isdigit,str(atten)))
+            item['fans'] = int(filter(str.isdigit,str(fans)))
+            item['articles'] = int(filter(str.isdigit,str(articles)))
+            item['collections'] = int(filter(str.isdigit,str(collections)))
 
             item['words'] = int(filter(str.isdigit,str(meta[0])))
             item['likes'] = int(filter(str.isdigit,str(meta[1])))
@@ -71,13 +73,14 @@ class JianshuUsersSpider(CrawlSpider):
             yield item
 
         if url.find('?page') < 0:
-            for i in range(2,(fannums/9)+2):
-                url = response.url+'?page=%s'%i
-                yield Request(url,callback=self.parse)
-
-
-
-
+            if url.find('followers') > 0 :
+                for i in range(2,(fannums/9)+2):
+                    nexturl = response.url+'?page=%s'%i
+                    yield Request(nexturl,callback=self.parse)
+            elif url.find('following') >0:
+                for i in range(2, (attennums / 9) + 2):
+                    nexturl = response.url + '?page=%s' % i
+                    yield Request(nexturl, callback=self.parse)
 
 
 
