@@ -17,10 +17,11 @@ class JianshuUsersSpider(CrawlSpider):
 
     start_urls=[
         'http://www.jianshu.com/users/aTFqFm/following', #首席拒稿官, --> 简书签约作者
-        'http://www.jianshu.com/users/54b5900965ea/followers',#彭小六  --> 普通用户居多,下同
+        'http://www.jianshu.com/users/1441f4ae075d/followers',#彭小六  --> 普通用户居多,下同
         'http://www.jianshu.com/users/y3Dbcz/followers',  # 简叔
         'http://www.jianshu.com/users/8f03f4df0d30/followers' #剽悍一只猫
         'http://www.jianshu.com/users/5SqsuF/followers', #刘淼
+        'http://www.jianshu.com/users/d9edcb44e2f2/followers' #简书日报
 
     ]
 

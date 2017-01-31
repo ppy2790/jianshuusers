@@ -94,7 +94,7 @@ USER_AGENT ='Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1; TencentTraveler 
 
 
 ROBOTSTXT_OBEY=False
-DOWNLOAD_DELAY = 1 # 250 ms of delay
+DOWNLOAD_DELAY = 0.5 # 250 ms of delay
 
 # FEED_URI=u'/Users/apple/Desktop/jianshu-users.csv'
 # FEED_FORMAT='CSV'
